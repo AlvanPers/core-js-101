@@ -66,8 +66,9 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  return value.replace('Hello, ', '').replace('!', "");
+  return value.replace('Hello, ', '').replace('!', '');
 }
+
 
 /**
  * Returns a first char of the given string.
@@ -141,7 +142,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-  return str.replace(str[0], '').replace(str[str.length - 1], '');
+  return str.replaceAll(/[<>]/gi, '');
 }
 
 
@@ -175,8 +176,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-  const arr = str.split(';');
-  return arr;
+  return str.split(';');
 }
 
 /**
@@ -203,13 +203,11 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  let linetop, linemiddle = '', linebottom = '';
-  linetop = `┌${'─'.repeat(width - 2)}┐\n`;
-  for (let i = 0; i < height - 2; i += 1) {
-    linemiddle = linemiddle + `│${' '.repeat(width - 2)}│\n`;
-  }
-  linebottom = `└${'─'.repeat(width - 2)}┘\n`;
-  return linetop + linemiddle + linebottom;
+  const topLine = `┌${'─'.repeat(width - 2)}┐\n`;
+  const middleLIne = `│${' '.repeat(width - 2)}│\n`;
+  const middle = middleLIne.repeat(height - 2);
+  const bottomLine = `└${'─'.repeat(width - 2)}┘\n`;
+  return topLine + middle + bottomLine;
 }
 
 
@@ -230,9 +228,9 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  const Alphavit = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const coder = 'nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM';
-  return str.replace(/[a-z]/gi, (letter) => coder[Alphavit.indexOf(letter)]);
+  const latinAlpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const cipher = 'nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM';
+  return str.replace(/[a-z]/gi, (letter) => cipher[latinAlpha.indexOf(letter)]);
 }
 
 /**
@@ -249,8 +247,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  if (typeof value === "string" || typeof value === 'object' && value instanceof String) { return true; }
-  else { return false; }
+  return (typeof value === 'string') || (typeof value === 'object' && value instanceof String);
 }
 
 
@@ -279,8 +276,11 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  const arr = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
-  return arr.indexOf(value);
+  const deck = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  return deck.indexOf(value);
 }
 
 
