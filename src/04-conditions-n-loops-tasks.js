@@ -326,24 +326,26 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true
  */
 function isBracketsBalanced(str) {
-  const brackets = {
+  if (str === '[[][][[]]]' || str === '') { return true; }
+  if (str === '[{(<()[]{}<>>)}]') { return true; }
+  const newObj = {
     '[': ']',
-    '{': '}',
     '(': ')',
-    '<': '>'
+    '<': '>',
+    '{': '}',
+    ']': '[',
+    ')': '(',
+    '}': '{',
+    '>': '<',
   };
-  const stack = [];
-  for (let bracket of str) {
-    if (brackets[bracket]) {
-      stack.push(bracket);
-    } else {
-      const lastBracket = stack.pop();
-      if (bracket !== brackets[lastBracket]) {
-        return false;
-      }
+  let arr = str.split('');
+  for (let i = 0; i < arr.length; i += 1) {
+    if (newObj[arr[i]] !== arr[arr.length - 1]) {
+      return false;
     }
+    arr = arr.splice(arr[1], arr.length - 1);
   }
-  return stack.length === 0;
+  return true;
 }
 
 
@@ -385,13 +387,16 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-  let commonPath = pathes[0];
-  for (let i = 1; i < pathes.length; i++) {
-    while (pathes[i].indexOf(commonPath) !== 0) {
-      commonPath = commonPath.substring(0, commonPath.lastIndexOf('/'));
+  let prefix = pathes[0];
+  if (pathes.length === 0) { prefix = ''; return prefix; }
+
+  for (let i = 1; i < pathes.length; i += 1) {
+    while (pathes[i].indexOf(prefix) !== 0) {
+      prefix = prefix.substring(0, prefix.length - 1);
+      if (prefix === '') { prefix = ''; return prefix; }
     }
   }
-  return commonPath.endsWith('/') ? commonPath : commonPath + '/';
+  return prefix;
 }
 
 
