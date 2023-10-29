@@ -206,8 +206,8 @@ function roundToPowerOfTen(num, pow) {
 function isPrime(n) {
   let marker = 0;
   if (n != 1) {
-    for (let i = 2; i <= n; i++) {
-      if (n % i === 0) { marker++; }
+    for (let i = 2; i <= n; i += 1) {
+      if (n % i === 0) { marker += 1; }
     }
   }
   if (marker === 1) { return true; }

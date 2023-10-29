@@ -205,7 +205,7 @@ function extractEmails(str) {
 function getRectangleString(width, height) {
   let linetop, linemiddle = '', linebottom = '';
   linetop = `┌${'─'.repeat(width - 2)}┐\n`;
-  for (let i = 0; i < height - 2; i++) {
+  for (let i = 0; i < height - 2; i += 1) {
     linemiddle = linemiddle + `│${' '.repeat(width - 2)}│\n`;
   }
   linebottom = `└${'─'.repeat(width - 2)}┘\n`;
@@ -249,9 +249,8 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  if (typeof value === "string" || typeof value === 'object' && value instanceof String) {
-    return true;
-  } else { return false; }
+  if (typeof value === "string" || typeof value === 'object' && value instanceof String) { return true; }
+  else { return false; }
 }
 
 
