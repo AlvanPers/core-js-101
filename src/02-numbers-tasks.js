@@ -110,9 +110,11 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  const angle = (x1 * x2 + y1 * y2) / (Math.hypot(x1, y1) * Math.hypot(x2, y2));
-  const angleP = Math.acos(angle);
-  return angleP;
+  const dotProduct = x1 * x2 + y1 * y2;
+  const magn1 = Math.hypot(x1, y1);
+  const magn2 = Math.hypot(x2, y2);
+  const cosTheta = dotProduct / (magn1 * magn2);
+  return Math.acos(cosTheta);
 }
 
 /**
@@ -230,7 +232,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  if (isNaN(Number(value))) { return def; } else { return Number(value); }
+  return Number.isNaN(Number(value)) ? def : Number(value);
 }
 
 module.exports = {
