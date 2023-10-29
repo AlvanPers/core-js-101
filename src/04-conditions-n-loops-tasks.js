@@ -328,7 +328,16 @@ function getDigitalRoot(num) {
 function isBracketsBalanced(str) {
   if (str === '[[][][[]]]' || str === '') { return true; }
   if (str === '[{(<()[]{}<>>)}]') { return true; }
-  const newObj = { '[': ']', '(': ')', '<': '>', '{': '}', ']': '[', ')': '(', '}': '{', '>': '<' };
+  const newObj = {
+    '[': ']',
+    '(': ')',
+    '<': '>',
+    '{': '}',
+    ']': '[',
+    ')': '(',
+    '}': '{',
+    '>': '<',
+  };
   let arr = str.split('');
   for (let i = 0; i < arr.length; i += 1) {
     if (newObj[arr[i]] !== arr[arr.length - 1]) {
@@ -379,12 +388,12 @@ function toNaryString(num, n) {
  */
 function getCommonDirectoryPath(pathes) {
   let prefix = pathes[0];
-  if (pathes.length === 0) { prefix = ""; return prefix };
+  if (pathes.length === 0) { prefix = ''; return prefix; }
 
   for (let i = 1; i < pathes.length; i += 1) {
     while (pathes[i].indexOf(prefix) !== 0) {
       prefix = prefix.substring(0, prefix.length - 1);
-      if (prefix === "") { prefix = ""; return prefix };
+      if (prefix === '') { prefix = ''; return prefix; }
     }
   }
   return prefix;
@@ -410,7 +419,7 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-  let result = [];
+  const result = [];
   for (let i = 0; i < m1.length; i += 1) {
     result[i] = [];
     for (let j = 0; j < m2[0].length; j += 1) {
