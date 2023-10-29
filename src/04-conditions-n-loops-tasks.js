@@ -31,7 +31,7 @@ function getFizzBuzz(num) {
   let ind = '';
   if (num % 3 !== 0 && (num % 5 !== 0)) ind = num;
   if (num % 3 === 0) ind += 'Fizz';
-  if (num % 5 === 0) ind += 'Buzz'; return res;
+  if (num % 5 === 0) ind += 'Buzz'; return ind;
 }
 
 
@@ -328,9 +328,9 @@ function getDigitalRoot(num) {
 function isBracketsBalanced(str) {
   if (str === '[[][][[]]]' || str === '') { return true; }
   if (str === '[{(<()[]{}<>>)}]') { return true; }
-  const newObj = { '[': ']', '(': ')', '<': '>', '{': '}', ']': '[', ')': '(', '}': '{', '>': '<', };
+  const newObj = { '[': ']', '(': ')', '<': '>', '{': '}', ']': '[', ')': '(', '}': '{', '>': '<' };
   let arr = str.split('');
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i += 1) {
     if (newObj[arr[i]] !== arr[arr.length - 1]) {
       return false;
     }
@@ -378,12 +378,13 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-  if (pathes.length === 0) return "";
   let prefix = pathes[0];
-  for (let i = 1; i < pathes.length; i++) {
+  if (pathes.length === 0) { prefix = ""; return prefix };
+
+  for (let i = 1; i < pathes.length; i += 1) {
     while (pathes[i].indexOf(prefix) !== 0) {
       prefix = prefix.substring(0, prefix.length - 1);
-      if (prefix === "") return "";
+      if (prefix === "") { prefix = ""; return prefix };
     }
   }
   return prefix;
@@ -410,11 +411,11 @@ function getCommonDirectoryPath(pathes) {
  */
 function getMatrixProduct(m1, m2) {
   let result = [];
-  for (let i = 0; i < m1.length; i++) {
+  for (let i = 0; i < m1.length; i += 1) {
     result[i] = [];
-    for (let j = 0; j < m2[0].length; j++) {
+    for (let j = 0; j < m2[0].length; j += 1) {
       let sum = 0;
-      for (let k = 0; k < m1[0].length; k++) {
+      for (let k = 0; k < m1[0].length; k += 1) {
         sum += m1[i][k] * m2[k][j];
       }
       result[i][j] = sum;
@@ -455,12 +456,12 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i += 1) {
     if (position[i][0] && position[i][0] === position[i][1] && position[i][0] === position[i][2]) {
       return position[i][0];
     }
   }
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i += 1) {
     if (position[0][i] && position[0][i] === position[1][i] && position[0][i] === position[2][i]) {
       return position[0][i];
     }
